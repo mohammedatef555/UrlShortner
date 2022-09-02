@@ -13,8 +13,8 @@ import java.util.UUID;
 @Service
 public class URLInfoService {
 
-    final private URLInfoRepository urlInfoRepository;
-    private Environment env;
+    private final URLInfoRepository urlInfoRepository;
+    private final Environment env;
 
     @Autowired
     public URLInfoService(URLInfoRepository urlInfoRepository, Environment env){
@@ -29,11 +29,24 @@ public class URLInfoService {
     public List<URLInfo> findByShortenUrl(String shortenUrl){
         String root = env.getProperty("myApp.url");
         shortenUrl = root + shortenUrl;
-        return urlInfoRepository.findByShortenUrl(shortenUrl);
+        List<URLInfo> urlInfoList = urlInfoRepository.findByShortenUrl(shortenUrl);
+        if (!urlInfoList.isEmpty()){
+            URLInfo urlInfo = urlInfoList.get(0);
+            urlInfo.setCount(urlInfo.getCount() + 1);
+            urlInfoRepository.saveAndFlush(urlInfo);
+        }
+        return urlInfoList;
+    }
+
+    public List<URLInfo> findByShortenUrlDetails(String shortenUrl){
+        String root = env.getProperty("myApp.url");
+        shortenUrl = root + shortenUrl;
+        List<URLInfo> urlInfoList = urlInfoRepository.findByShortenUrl(shortenUrl);
+        return urlInfoList;
     }
 
     public List<URLInfo> findAll() {
-        return urlInfoRepository.findAll();
+        return urlInfoRepository.findAllByOrderByIdAsc();
     }
 
     public URLInfo createURLInfo(String original_url){
@@ -72,5 +85,4 @@ public class URLInfoService {
         String uniqueIdentifier = data.substring(beginIndex, endIndex);
         return uniqueIdentifier;
     }
-
 }

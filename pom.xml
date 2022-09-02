@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.mohammed</groupId>
-	<artifactId>url_shortner</artifactId>
+	<artifactId>url_shortener</artifactId>
 	<version>v1</version>
 	<name>URLShortener</name>
 	<description>Demo project for Spring Boot</description>

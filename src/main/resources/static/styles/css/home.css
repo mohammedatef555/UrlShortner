@@ -1,3 +1,7 @@
 .my-logo {
     font-size: 6em;
 }
+
+#urls {
+    display: none;
+}

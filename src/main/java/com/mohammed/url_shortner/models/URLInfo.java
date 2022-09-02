@@ -13,6 +13,8 @@ public class URLInfo {
     private String shortenUrl;
     @Column(name = "original_url", nullable = false, length = 1000)
     private String originalUrl;
+    @Column
+    private long count;
 
 
     public URLInfo() {
@@ -21,6 +23,7 @@ public class URLInfo {
     public URLInfo(String shortenUrl, String originalUrl){
         this.shortenUrl = shortenUrl;
         this.originalUrl = originalUrl;
+        this.count = 0L;
     }
 
     public long getId() {
@@ -35,6 +38,10 @@ public class URLInfo {
         return originalUrl;
     }
 
+    public long getCount() {
+        return count;
+    }
+
     public void setId(long id) {
         this.id = id;
     }
@@ -45,5 +52,9 @@ public class URLInfo {
 
     public void setOriginalUrl(String originalUrl) {
         this.originalUrl = originalUrl;
+    }
+
+    public void setCount(long count) {
+        this.count = count;
     }
 }
